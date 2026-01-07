@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-action@stable
+
+      - uses: jetli/wasm-pack-action@v0.4.0
+
+      - name: Build WASM
+        run: wasm-pack build experiments/game-of-life --target web --out-dir ../../site/experiments/game-of-life/pkg
+
+      - name: Deploy to Netlify
+        uses: South-Paw/action-netlify-cli@v2
+        with:
+          args: deploy --prod --dir './site'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

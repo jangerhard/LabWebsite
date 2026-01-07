@@ -1,11 +1,11 @@
 {
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "enterprise-github"
-  ],
   "permissions": {
     "allow": [
       "Bash(git init)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "enterprise-github"
+  ]
 }
