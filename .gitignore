@@ -1,0 +1,4 @@
+target/
+docs/plans/*
+!docs/plans/.gitkeep
+.DS_Store

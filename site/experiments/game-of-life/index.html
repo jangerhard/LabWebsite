@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conway's Game of Life - Jan's Lab</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="experiment-header">
+            <h1>Conway's Game of Life</h1>
+            <div class="experiment-meta">
+                <span>January 2025</span>
+                <a href="https://github.com/jgerardschopp/LabWebsite/tree/main/experiments/game-of-life">View Source</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="controls">
+                <button id="play-pause">Pause</button>
+                <button id="reset">Reset</button>
+                <button id="clear">Clear</button>
+            </div>
+
+            <canvas id="game-canvas"></canvas>
+
+            <section class="write-up">
+                <h2>About This Experiment</h2>
+
+                <p>
+                    The Game of Life, created by mathematician John Conway in 1970, is a zero-player game
+                    that simulates cellular automaton. Despite having no players, it produces fascinating
+                    emergent behavior from just four simple rules:
+                </p>
+
+                <ol>
+                    <li>Any live cell with fewer than two live neighbors dies (underpopulation)</li>
+                    <li>Any live cell with two or three live neighbors survives</li>
+                    <li>Any live cell with more than three live neighbors dies (overpopulation)</li>
+                    <li>Any dead cell with exactly three live neighbors becomes alive (reproduction)</li>
+                </ol>
+
+                <h3>Why Rust + WebAssembly?</h3>
+                <p>
+                    This project serves as an ideal introduction to Rust and WebAssembly. The Game of Life
+                    involves iterating over a grid and applying rules to each cell—a task where Rust's
+                    performance shines compared to JavaScript. The simulation runs entirely in WASM, with
+                    JavaScript handling only the canvas rendering and user interaction.
+                </p>
+
+                <h3>Implementation Details</h3>
+                <p>
+                    The universe is represented as a flat <code>Vec&lt;Cell&gt;</code> in Rust, where each
+                    cell is a single byte (0 = dead, 1 = alive). JavaScript reads this memory directly
+                    using <code>WebAssembly.Memory</code>, avoiding expensive data copying between the
+                    WASM and JS runtimes.
+                </p>
+                <p>
+                    The <code>wasm-bindgen</code> crate generates the JavaScript bindings automatically,
+                    exposing methods like <code>tick()</code> and <code>toggle_cell(row, col)</code> that
+                    JavaScript can call directly.
+                </p>
+
+                <h3>Try It</h3>
+                <p>
+                    Click any cell to toggle it between alive and dead. Use the Pause button to stop the
+                    simulation and draw your own patterns. Some interesting patterns to try: gliders
+                    (5 cells in an arrow shape), oscillators (3 cells in a row), or the famous glider gun.
+                </p>
+            </section>
+
+            <div class="back-link">
+                <a href="/">← Back to experiments</a>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
