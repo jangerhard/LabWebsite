@@ -1,5 +1,5 @@
 target/
 site/experiments/*/pkg/
-docs/plans/*
-!docs/plans/.gitkeep
+docs/*
+!docs/.gitkeep
 .DS_Store
